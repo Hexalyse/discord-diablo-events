@@ -21,7 +21,7 @@ discordClient.once(Events.ClientReady, (c) => {
       // Check for new tweets on the Twitter account https://twitter.com/game8_d4boss
       try {
         const res = await twitterClient.userTimeline("1665642971629486080", {
-          exclude: "replies",
+          exclude_replies: true,
           count: 1,
         });
         // Skip if this is the same tweet we saw last time
