@@ -22,15 +22,15 @@ discordClient.once(Events.ClientReady, (c) => {
       try {
         const res = await twitterClient.userTimeline("1665642971629486080", {
           exclude: "replies",
-          count: 2,
+          count: 1,
         });
         // Skip if this is the same tweet we saw last time
         if (res.tweets[0].id === lastTweetId) {
-          await new Promise((resolve) => setTimeout(resolve, 60000));
+          await new Promise((resolve) => setTimeout(resolve, 300000));
           continue;
         }
         lastTweetId = res.tweets[0].id;
-        const message = res.tweets[1].full_text;
+        const message = res.tweets[0].full_text;
         // check if message contains "will spawn"
         if (message.includes("will spawn")) {
           const matches = message.match(/(\d+):(\d+)[ ]+(AM|PM) EST/);
@@ -51,8 +51,8 @@ discordClient.once(Events.ClientReady, (c) => {
             )} minutes (<t:${time.unix()}>)`
           );
         }
-        // sleep 1 minute
-        await new Promise((resolve) => setTimeout(resolve, 60000));
+        // sleep 5 minutes
+        await new Promise((resolve) => setTimeout(resolve, 300000));
       } catch (e) {
         console.log(e);
         // In case of error, sleep 5 minutes
