@@ -38,6 +38,11 @@ discordClient.once(Events.ClientReady, (c) => {
             `${matches[1]}:${matches[2]} ${matches[3]} -0400`,
             "h:mm A ZZ"
           );
+          // if time is in the past, skip
+          if (time.isBefore(dayjs())) {
+            await new Promise((resolve) => setTimeout(resolve, 300000));
+            continue;
+          }
           // Cleanup the message we relay to Discord to remove time and urls
           const filteredMessage = message
             .replace(matches[0], "")
