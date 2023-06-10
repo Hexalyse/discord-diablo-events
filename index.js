@@ -22,7 +22,7 @@ discordClient.once(Events.ClientReady, (c) => {
       try {
         const res = await twitterClient.userTimeline("1665642971629486080", {
           exclude_replies: true,
-          count: 1,
+          count: 2,
         });
         // Skip if this is the same tweet we saw last time
         if (res.tweets[0].id === lastTweetId) {
@@ -30,10 +30,10 @@ discordClient.once(Events.ClientReady, (c) => {
           continue;
         }
         lastTweetId = res.tweets[0].id;
-        const message = res.tweets[0].full_text;
+        const message = res.tweets[1].full_text;
         // check if message contains "will spawn"
         if (message.includes("will spawn")) {
-          const matches = message.match(/(\d+):(\d+)[ ]+(AM|PM) EST/);
+          const matches = message.match(/(\d+):(\d+)[ ]*(AM|PM) EST/);
           const time = dayjs(
             `${matches[1]}:${matches[2]} ${matches[3]} -0400`,
             "h:mm A ZZ"
