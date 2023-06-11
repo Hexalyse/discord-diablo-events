@@ -33,7 +33,9 @@ discordClient.once(Events.ClientReady, (c) => {
         const message = res.tweets[0].full_text;
         // check if message contains "will spawn"
         if (message.includes("will spawn")) {
-          const matches = message.match(/(\d+):(\d+)[ ]*(AM|PM) EST/);
+          const matches = message.match(
+            /(\d+):(\d+)[ ]*(AM|PM|am|pm) (EST|est)/
+          );
           const time = dayjs(
             `${matches[1]}:${matches[2]} ${matches[3]} -0400`,
             "h:mm A ZZ"
